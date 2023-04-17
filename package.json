@@ -2,9 +2,13 @@
   "name": "blog-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
+    "seed": "npx sequelize db:seed:all",
+    "drop": "npx sequelize db:drop"
   },
   "repository": {
     "type": "git",

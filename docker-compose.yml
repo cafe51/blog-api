@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  app:
+    image: node:16.14-alpine
+    tty: true
+    stdin_open: true
+    container_name: blog
+    working_dir: /app
+    depends_on:
+      - db
+    ports:
+      - 3001:3001
+    environment:
+      - PORT=3001
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=blog_database
+      - MYSQL_HOST=db
+      - JWT_SECRET=secretJWT
+    volumes:
+      - ./:/app
+  db:
+    image: mysql:8.0.23
+    container_name: blog-db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
