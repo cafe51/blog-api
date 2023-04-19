@@ -1,6 +1,6 @@
 const { user } = require('../database/models');
 const errorMap = require('../utils/errorMap');
-const { insertUserValidator } = require('../utils/Validator');
+const { insertUserValidator } = require('../utils/validator');
 const { sign } = require('../utils/jwt');
 
 const NAME = 'display_name';
@@ -29,14 +29,18 @@ class UserService {
     const validation = await insertUserValidator({ displayName, email, password });
     if (validation.status) return validation;
 
-    const userFromDb = await this.getUserByEmail(email);
-    if (!userFromDb.status) {
+    const [, created] = await this.model.findOrCreate({
+      where: { email },
+      defaults: {
+        [NAME]: displayName,
+        password,
+        image,
+      },
+    });
+
+    if (!created) {
       return { status: errorMap.mapError('CONFLICT'), payload: 'User already registered' };
     }
-
-    await this.model.create({
-      [NAME]: displayName, email, password, image,
-    });
 
     const token = sign(email);
 

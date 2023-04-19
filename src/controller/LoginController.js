@@ -1,18 +1,15 @@
-const UserService = require('../services/UserService');
-const { loginAuthenticator, emailAndPasswordValidator } = require('../utils/Validator');
+const { loginAuthenticator, emailAndPasswordValidator } = require('../utils/validator');
 const { sign } = require('../utils/jwt');
 
 class LoginController {
-  constructor() {
-    this.service = new UserService();
+  constructor(service) {
+    this.service = service;
   }
-
-  static validation = async (email, password) => emailAndPasswordValidator(email, password);
 
   login = async (req, res) => {
     try {
       const { email, password } = req.body;
-      await LoginController.validation(email, password);
+      await emailAndPasswordValidator(email, password);
 
       const user = await this.service.getUserByEmail(email);
       if (user.status) {

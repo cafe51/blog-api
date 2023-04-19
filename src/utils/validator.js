@@ -22,7 +22,7 @@ const loginAuthenticator = async (userRq, userDb) => {
     if (dataValues.password !== password || dataValues.email !== email) {
       return { status: mapError('BAD_REQUEST'), payload: 'Invalid fields' };
     }
-    return { status: null, payload: null };
+    return { status: null };
   } catch (err) {
     return { status: mapError('BAD_REQUEST'), payload: err.message };
   }
