@@ -1,5 +1,5 @@
 const UserService = require('../services/UserService');
-const { loginValidator } = require('../utils/Validator');
+const { loginAuthenticator, emailAndPasswordValidator } = require('../utils/Validator');
 const { sign } = require('../utils/jwt');
 
 class LoginController {
@@ -7,29 +7,36 @@ class LoginController {
     this.service = new UserService();
   }
 
+  static validation = async (email, password) => emailAndPasswordValidator(email, password);
+
   login = async (req, res) => {
     try {
-      const { email } = req.body;
-
-      // if (!(email && password)) {
-      //   return res.status(400).json({ message: 'Some required fields are missing' });
-      // }
+      const { email, password } = req.body;
+      await LoginController.validation(email, password);
 
       const user = await this.service.getUserByEmail(email);
-      if (user.status) return res.status(user.status).json({ message: user.payload });
-
-      const validator = await loginValidator(req.body, user);
-      if (validator.status) {
+      if (user.status) {
         return res
-          .status(validator.status)
-          .json({ message: validator.payload });
+          .status(user.status)
+          .json({ message: user.payload });
+      }
+
+      const authentication = await loginAuthenticator(req.body, user);
+      if (authentication.status) {
+        return res
+          .status(authentication.status)
+          .json({ message: authentication.payload });
       }
 
       const token = sign(user.payload.dataValues.email);
 
-      return res.status(200).json({ token });
+      return res
+        .status(200)
+        .json({ token });
     } catch (err) {
-      return res.status(500).json({ error: err.message });
+      return res
+        .status(500)
+        .json({ error: err.message });
     }
   };
 }
