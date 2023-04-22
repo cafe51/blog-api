@@ -6,7 +6,6 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 const app = require('../../src/app');
-// const UserService = require('../src/services/UserService');
 const { user } = require('../../src/database/models');
 
 describe('Testa o login', () => {

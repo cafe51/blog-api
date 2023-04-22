@@ -7,7 +7,7 @@
     "start": "node .",
     "dev": "nodemon .",
     "test": "mocha --recursive test/**/*.test.js",
-    "create": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
+    "db:create": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
     "seed": "npx sequelize db:seed:all",
     "drop": "npx sequelize db:drop"
   },

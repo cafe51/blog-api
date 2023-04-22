@@ -10,22 +10,20 @@ class UserService {
     this.model = user;
   }
 
-  getUserByEmail = async (email) => {
+  async getUserByEmail(email) {
     const userFromDb = await this.model.findOne({ where: { email } });
     if (!userFromDb) return { status: errorMap.mapError('BAD_REQUEST'), payload: 'Invalid fields' };
     return { status: null, payload: userFromDb };
-  };
+  }
 
-  getAllUsers = async () => {
+  async getAllUsers() {
     const users = await this.model.findAll({ attributes: { exclude: ['password'] } });
     return { status: null, payload: users };
-  };
+  }
 
-  registerUser = async ({
+  async registerUser({
     displayName, email, password, image,
-  }) => {
-    if (!this.model) throw new Error('Model not found');
-
+  }) {
     const validation = await insertUserValidator({ displayName, email, password });
     if (validation.status) return validation;
 
@@ -45,7 +43,7 @@ class UserService {
     const token = sign(email);
 
     return { status: null, payload: token };
-  };
+  }
 }
 
 module.exports = UserService;
