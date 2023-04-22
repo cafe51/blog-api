@@ -117,7 +117,7 @@ describe('User API', () => {
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('message', '"email" must be a valid email');
   });
-  it('cadastra um novo usuário com sem inserir o email', async () => {
+  it('cadastra um novo usuário sem inserir o email', async () => {
     const userServiceStub = sinon.stub(user, 'findOrCreate');
     userServiceStub.resolves('registrado');
 
@@ -154,7 +154,7 @@ describe('User API', () => {
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('message', '"password" length must be at least 6 characters long');
   });
-  it('cadastra um novo usuário com a senha errada', async () => {
+  it('cadastra um novo usuário sem inserir a senha', async () => {
     const userServiceStub = sinon.stub(user, 'findOrCreate');
     userServiceStub.resolves('registrado');
 
