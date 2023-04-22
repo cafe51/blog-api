@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --recursive test/**/*.test.js",
     "create": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
     "seed": "npx sequelize db:seed:all",
     "drop": "npx sequelize db:drop"
@@ -30,10 +30,14 @@
     "sequelize": "^6.31.0"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "eslint": "^8.38.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
-    "sequelize-cli": "^6.6.0"
+    "sequelize-cli": "^6.6.0",
+    "sinon": "^15.0.3"
   }
 }
