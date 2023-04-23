@@ -25,7 +25,6 @@ describe('User API', () => {
       .get('/post')
       .set('Authorization', token);
 
-    console.log('Resposta de /post', httpResponse.body);
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('array');
     expect(httpResponse.body.length).to.equal(3);
