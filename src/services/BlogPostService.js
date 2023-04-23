@@ -1,13 +1,20 @@
-const { blog_post: blogPost } = require('../database/models');
+const { blog_post: blogPost, user, category } = require('../database/models');
 
 class BlogPostService {
   constructor() {
-    this.model = blogPost;
+    this.modelBlogPost = blogPost;
+    this.modelUser = user;
+    this.modelCategory = category;
   }
 
   async getAllposts() {
-    const posts = await this.model.findAll();
-    return { status: null, payload: posts };
+    const posts = await this.modelBlogPost.findAll({
+      include: [
+        { model: this.modelUser, as: 'users', attributes: { exclude: ['password'] } },
+        { model: this.modelCategory, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return { type: null, payload: posts };
   }
 }
 
