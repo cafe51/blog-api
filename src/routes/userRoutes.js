@@ -10,6 +10,7 @@ const controller = new UserController(new UserService());
 router
   .post('/', controller.registerUser)
   .use(authenticator)
-  .get('/', controller.getAllUsers);
+  .get('/', controller.getAllUsers)
+  .get('/:id', controller.getUserById);
 
 module.exports = router;

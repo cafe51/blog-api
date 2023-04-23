@@ -13,6 +13,17 @@ class UserController {
     }
   };
 
+  getUserById = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, payload } = await this.service.getUserById(id);
+      if (status) return res.status(status).json({ message: payload });
+      return res.status(200).json(payload);
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
+
   registerUser = async (req, res) => {
     try {
       const { body } = req;
