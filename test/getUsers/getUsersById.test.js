@@ -5,7 +5,6 @@ const { sign } = require('../../src/utils/jwt');
 const { user } = require('../../src/database/models');
 
 function generateToken(email) {
-  // Use um e-mail fictício para gerar um token de teste
   return sign(email);
 }
 
@@ -37,8 +36,6 @@ describe('User API', () => {
       .request(app)
       .get('/user/1')
       .set('Authorization', token);
-    console.log('resposta quando o usuário existe', httpResponse.body);
-    // expect(1).to.equal(11);
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('id', 1);
@@ -55,7 +52,6 @@ describe('User API', () => {
       .request(app)
       .get('/user/1')
       .set('Authorization', token);
-    console.log('resposta quando o usuário NÃO existe', httpResponse.body);
     expect(httpResponse).to.have.status(404);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('message', 'User does not exist');

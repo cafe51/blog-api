@@ -24,8 +24,6 @@ describe('Testa o login', () => {
       .request(app)
       .post('/login')
       .send({ email, password });
-
-    console.log('Body da requisição', httpResponse.body);
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('token');

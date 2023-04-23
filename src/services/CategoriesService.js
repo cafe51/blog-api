@@ -7,7 +7,7 @@ class CategoriesService {
   }
 
   async getAllcategories() {
-    const categories = await this.model.findAll({ attributes: { exclude: ['password'] } });
+    const categories = await this.model.findAll();
     return { status: null, payload: categories };
   }
 }

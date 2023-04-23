@@ -5,7 +5,6 @@ const { sign } = require('../../src/utils/jwt');
 const { user } = require('../../src/database/models');
 
 function generateToken(email) {
-  // Use um e-mail fictício para gerar um token de teste
   return sign(email);
 }
 
@@ -56,7 +55,6 @@ describe('User API', () => {
       .request(app)
       .post('/user')
       .send(newUser);
-    console.log('resposta da requisição: ', httpResponse.body);
     expect(httpResponse).to.have.status(409);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('message', 'User already registered');

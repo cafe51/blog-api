@@ -5,7 +5,6 @@ const { sign } = require('../../src/utils/jwt');
 const { user } = require('../../src/database/models');
 
 function generateToken(email) {
-  // Use um e-mail fictício para gerar um token de teste
   return sign(email);
 }
 
