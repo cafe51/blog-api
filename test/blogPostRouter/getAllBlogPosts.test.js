@@ -2,7 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
-const { blog_post: blogPosts } = require('../../src/database/models');
+// const { blog_post: blogPosts } = require('../../src/database/models');
 const blogPostsMock = require('../mocks');
 const app = require('../../src/app');
 
@@ -17,8 +17,8 @@ describe('User API', () => {
   });
 
   it('retorna todos os posts', async () => {
-    const stub = sinon.stub(blogPosts, 'findAll');
-    stub.resolves(blogPostsMock);
+    // const stub = sinon.stub(blogPosts, 'findAll');
+    // stub.resolves(blogPostsMock);
 
     const httpResponse = await chai
       .request(app)
