@@ -9,7 +9,7 @@ const controller = new CategoriesController(new CategoriesService());
 
 router
   .use(authenticator)
-  // .post('/', controller.registerUser)
+  .post('/', controller.createNewCategory)
   .get('/', controller.getAllcategories);
 
 module.exports = router;
