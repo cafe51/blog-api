@@ -12,6 +12,16 @@ class BlogPostController {
       return res.status(500).json({ error: err.message });
     }
   };
+
+  getPostById = async (req, res) => {
+    try {
+      const { status, payload } = await this.service.getPostById(req.params.id);
+      if (status) return res.status(status).json({ message: payload });
+      return res.status(200).json(payload);
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
 }
 
 module.exports = BlogPostController;

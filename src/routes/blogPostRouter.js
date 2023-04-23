@@ -10,6 +10,7 @@ const controller = new BlogPostController(new BlogPostService());
 router
   .use(authenticator)
   // .post('/', controller.createNewPost)
-  .get('/', controller.getAllposts);
+  .get('/', controller.getAllposts)
+  .get('/:id', controller.getPostById);
 
 module.exports = router;

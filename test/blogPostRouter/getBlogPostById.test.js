@@ -24,7 +24,7 @@ describe('User API', () => {
       .request(app)
       .get('/post/1')
       .set('Authorization', token);
-
+    console.log('POST BY ID', httpResponse.body);
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.be.deep.equal(blogPostsMock[0]);
