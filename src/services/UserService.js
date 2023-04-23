@@ -24,7 +24,7 @@ class UserService {
   async getUserById(id) {
     const userFindedByPk = await this.model.findByPk(
       id,
-      // { attributes: { exclude: ['password'] } },
+      { attributes: { exclude: ['password'] } },
     );
     if (!userFindedByPk) return { status: errorMap.mapError('NOT_FOUND'), payload: 'User does not exist' };
     return { status: null, payload: userFindedByPk };
