@@ -19,7 +19,7 @@ describe('User API', () => {
     sinon.restore();
   });
 
-  it('retorna todos os usuários', async () => {
+  it('retorna todos as categorias', async () => {
     const categories = [
       { id: 1, name: 'Inovação' },
       { id: 2, name: 'Escola' },
@@ -35,8 +35,6 @@ describe('User API', () => {
       .request(app)
       .get('/categories')
       .set('Authorization', token);
-
-    console.log('Resposta de /categories', httpResponse.body);
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('array');
     expect(httpResponse.body.length).to.equal(3);
