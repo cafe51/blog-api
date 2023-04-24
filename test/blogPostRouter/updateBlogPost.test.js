@@ -19,9 +19,26 @@ const blogPostUpdate = {
   content: 'new update',
 };
 
+const blogPostUpdateWithoutTitle = {
+  content: 'new update',
+};
+
+const blogPostUpdateWithoutContent = {
+  title: 'Latest updates, August 1st',
+};
+
 const userFound = {
   dataValues: {
     id: 1,
+    displayName: 'Lewis Hamilton',
+    email: 'lewishamilton@gmail.com',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+  },
+};
+
+const userFound2 = {
+  dataValues: {
+    id: 2,
     displayName: 'Lewis Hamilton',
     email: 'lewishamilton@gmail.com',
     image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
@@ -34,8 +51,6 @@ describe('Atualiza um post', () => {
   });
 
   it('Atualiza um novo post com sucesso', async () => {
-    // const stubFindPk = sinon.stub(blogPosts, 'findByPk');
-    // stubFindPk.resolves({ dataValues: blogPostsMock[3] });
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
     stubFindPk.onCall(0).resolves({ dataValues: postUpdated });
     stubFindPk.onCall(1).resolves(postUpdated);
@@ -51,9 +66,71 @@ describe('Atualiza um post', () => {
       .put('/post/3')
       .send(blogPostUpdate)
       .set('Authorization', token);
-    console.log(httpResponse.body);
+
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.be.deep.equal(postUpdated);
+  });
+  it('É impedido de atualizar um post por não ser o dono do post', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves({ dataValues: postUpdated });
+
+    const stubUpdate = sinon.stub(blogPosts, 'update');
+    stubUpdate.resolves(blogPostsMock[3]);
+
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves(userFound2);
+
+    const httpResponse = await chai
+      .request(app)
+      .put('/post/3')
+      .send(blogPostUpdate)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(401);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Unauthorized user' });
+  });
+  it('É impedido de atualizar um post que não existe', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves(null);
+
+    const httpResponse = await chai
+      .request(app)
+      .put('/post/9999')
+      .send(blogPostUpdate)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(404);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Some required fields are missing' });
+  });
+  it('É impedido de atualizar um post sem o informar o título', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves(null);
+
+    const httpResponse = await chai
+      .request(app)
+      .put('/post/2')
+      .send(blogPostUpdateWithoutTitle)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(404);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Some required fields are missing' });
+  });
+  it('É impedido de atualizar um post sem o informar o content', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves(null);
+
+    const httpResponse = await chai
+      .request(app)
+      .put('/post/2')
+      .send(blogPostUpdateWithoutContent)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(404);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Post does not exist' });
   });
 });
