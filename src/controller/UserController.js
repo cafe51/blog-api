@@ -3,11 +3,15 @@ class UserController {
     this.service = service;
   }
 
+  callServiceMethod = async (req, res, statusCode, serviceMethod) => {
+    const { status, payload } = await serviceMethod;
+    if (status) return res.status(status).json({ message: payload });
+    return res.status(statusCode).json(payload);
+  };
+
   getAllUsers = async (_req, res) => {
     try {
-      const { status, payload } = await this.service.getAllUsers();
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(200).json(payload);
+      await this.callServiceMethod(_req, res, 200, this.service.getAllUsers());
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -15,10 +19,7 @@ class UserController {
 
   getUserById = async (req, res) => {
     try {
-      const { id } = req.params;
-      const { status, payload } = await this.service.getUserById(id);
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(200).json(payload);
+      await this.callServiceMethod(req, res, 200, this.service.getUserById(req.params.id));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -26,10 +27,7 @@ class UserController {
 
   registerUser = async (req, res) => {
     try {
-      const { body } = req;
-      const { status, payload } = await this.service.registerUser(body);
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(201).json({ token: payload });
+      await this.callServiceMethod(req, res, 200, this.service.registerUser(req.body));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }

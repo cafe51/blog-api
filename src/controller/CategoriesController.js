@@ -3,11 +3,15 @@ class CategoriesController {
     this.service = service;
   }
 
+  callServiceMethod = async (req, res, statusCode, serviceMethod) => {
+    const { status, payload } = await serviceMethod;
+    if (status) return res.status(status).json({ message: payload });
+    return res.status(statusCode).json(payload);
+  };
+
   getAllcategories = async (_req, res) => {
     try {
-      const { status, payload } = await this.service.getAllcategories();
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(200).json(payload);
+      await this.callServiceMethod(_req, res, 200, this.service.getAllcategories());
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -15,9 +19,7 @@ class CategoriesController {
 
   createNewCategory = async (req, res) => {
     try {
-      const { status, payload } = await this.service.createNewCategory(req.body);
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(201).json(payload);
+      await this.callServiceMethod(req, res, 201, this.service.createNewCategory(req.body));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }

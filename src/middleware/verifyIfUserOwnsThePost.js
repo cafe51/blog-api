@@ -4,6 +4,8 @@ const BlogPostService = require('../services/BlogPostService');
 const userService = new UserService();
 const blogPostService = new BlogPostService();
 
+const USERID = 'user_id';
+
 const verifyIfUserOwnsThePost = async (req, res, next) => {
   try {
     const blogPostId = req.params.id;
@@ -13,9 +15,7 @@ const verifyIfUserOwnsThePost = async (req, res, next) => {
     const { payload: userFound } = await userService.getUserByEmail(userEmail);
 
     if (status) return res.status(status).json({ message: blogPostFound });
-    if (blogPostFound.userId !== userFound.id) return res.status(401).json({ message: 'Unauthorized user' });
-
-    console.log('BLOGPOST ', blogPostFound);
+    if (blogPostFound.dataValues[USERID] !== userFound.dataValues.id) return res.status(401).json({ message: 'Unauthorized user' });
 
     next();
   } catch (err) {

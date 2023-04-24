@@ -5,11 +5,15 @@ class BlogPostController {
     this.service = service;
   }
 
+  callServiceMethod = async (req, res, statusCode, serviceMethod) => {
+    const { status, payload } = await serviceMethod;
+    if (status) return res.status(status).json({ message: payload });
+    return res.status(statusCode).json(payload);
+  };
+
   getAllposts = async (_req, res) => {
     try {
-      const { status, payload } = await this.service.getAllposts();
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(200).json(payload);
+      await this.callServiceMethod(_req, res, 200, this.service.getAllposts());
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -17,9 +21,7 @@ class BlogPostController {
 
   getPostById = async (req, res) => {
     try {
-      const { status, payload } = await this.service.getPostById(req.params.id);
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(200).json(payload);
+      await this.callServiceMethod(req, res, 200, this.service.getPostById(req.params.id));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -28,11 +30,9 @@ class BlogPostController {
   createNewBlogPost = async (req, res) => {
     try {
       const userResponse = await new UserService().getUserByEmail(req.user);
-      const { status, payload } = await this.service.createNewBlogPost({
+      await this.callServiceMethod(req, res, 201, this.service.createNewBlogPost({
         userId: userResponse.payload.dataValues.id, ...req.body,
-      });
-      if (status) return res.status(status).json({ message: payload });
-      return res.status(201).json(payload);
+      }));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -41,6 +41,7 @@ class BlogPostController {
   updatePostService = async (req, res) => {
     try {
       await this.service.updatePostService(req.params.id, req.body);
+      await this.callServiceMethod(req, res, 200, this.service.getPostById(req.params.id));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
