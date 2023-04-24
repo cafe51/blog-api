@@ -2,7 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
-const { blog_post: blogPosts } = require('../../src/database/models');
+const { blog_post: blogPosts, posts_categories: postsCategories } = require('../../src/database/models');
 const {
   createNewPostResponse,
   newBlogPost,
@@ -29,6 +29,9 @@ describe('Cria um post novo', () => {
   it('cria um novo post com sucesso', async () => {
     const stub = sinon.stub(blogPosts, 'create');
     stub.resolves(createNewPostResponse);
+
+    const stub2 = sinon.stub(postsCategories, 'create');
+    stub2.resolves(null);
 
     const httpResponse = await chai
       .request(app)
