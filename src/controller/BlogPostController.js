@@ -37,6 +37,14 @@ class BlogPostController {
       return res.status(500).json({ error: err.message });
     }
   };
+
+  updatePostService = async (req, res) => {
+    try {
+      await this.service.updatePostService(req.params.id, req.body);
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
 }
 
 module.exports = BlogPostController;
