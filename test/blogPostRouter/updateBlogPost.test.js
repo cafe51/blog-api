@@ -103,11 +103,11 @@ describe('Atualiza um post', () => {
 
     expect(httpResponse).to.have.status(404);
     expect(httpResponse.body).to.be.an('object');
-    expect(httpResponse.body).to.be.deep.equal({ message: 'Some required fields are missing' });
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Post does not exist' });
   });
   it('É impedido de atualizar um post sem o informar o título', async () => {
-    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
-    stubFindPk.resolves(null);
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves(userFound);
 
     const httpResponse = await chai
       .request(app)
@@ -115,13 +115,13 @@ describe('Atualiza um post', () => {
       .send(blogPostUpdateWithoutTitle)
       .set('Authorization', token);
 
-    expect(httpResponse).to.have.status(404);
+    expect(httpResponse).to.have.status(400);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.be.deep.equal({ message: 'Some required fields are missing' });
   });
-  it('É impedido de atualizar um post sem o informar o content', async () => {
-    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
-    stubFindPk.resolves(null);
+  it('É impedido de atualizar um post sem o informar o título', async () => {
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves(userFound);
 
     const httpResponse = await chai
       .request(app)
@@ -129,8 +129,8 @@ describe('Atualiza um post', () => {
       .send(blogPostUpdateWithoutContent)
       .set('Authorization', token);
 
-    expect(httpResponse).to.have.status(404);
+    expect(httpResponse).to.have.status(400);
     expect(httpResponse.body).to.be.an('object');
-    expect(httpResponse.body).to.be.deep.equal({ message: 'Post does not exist' });
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Some required fields are missing' });
   });
 });
