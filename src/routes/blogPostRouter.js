@@ -9,7 +9,7 @@ const controller = new BlogPostController(new BlogPostService());
 
 router
   .use(authenticator)
-  // .post('/', controller.createNewPost)
+  .post('/', controller.createNewBlogPost)
   .get('/', controller.getAllposts)
   .get('/:id', controller.getPostById);
 
