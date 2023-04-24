@@ -49,6 +49,16 @@ class BlogPostService {
 
     return { type: null, payload: response };
   }
+
+  async updatePostService(id, body) {
+    const { title, content } = body;
+    if (!title || !content) return { type: 400, payload: 'Some required fields are missing' };
+    const post = await this.modelBlogPost.findByPk(id);
+    if (!post) return { type: 404, payload: 'Post does not exist' };
+    await post.update({ title, content });
+    const updatedPost = await this.getPostById(id);
+    return { type: null, payload: updatedPost.payload };
+  };
 }
 
 module.exports = BlogPostService;

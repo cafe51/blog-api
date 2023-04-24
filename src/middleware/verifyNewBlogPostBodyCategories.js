@@ -12,15 +12,13 @@ async function validateCategoryIds(categoryIds) {
   return categoriesFound.every((category) => category.payload);
 }
 
-const checkRequiredFields = (title, content, categoryIds) => title && content && categoryIds;
-
 const checkCategoryIdsStructure = (categoryIds) => categoryIds.length >= 1 && typeof categoryIds === 'object';
 
-const verifyNewBlogPostBody = async (req, res, next) => {
+const verifyNewBlogPostBodyCategories = async (req, res, next) => {
   try {
-    const { title, content, categoryIds } = req.body;
+    const { categoryIds } = req.body;
 
-    if (!checkRequiredFields(title, content, categoryIds)) {
+    if (!categoryIds) {
       return res.status(mapError('BAD_REQUEST')).json({ message: 'Some required fields are missing' });
     }
 
@@ -40,5 +38,5 @@ const verifyNewBlogPostBody = async (req, res, next) => {
 };
 
 module.exports = {
-  verifyNewBlogPostBody,
+  verifyNewBlogPostBodyCategories,
 };
