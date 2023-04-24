@@ -61,6 +61,43 @@ const blogPostsMock = [
   },
 ];
 
+const createNewPostResponse = {
+  dataValues: {
+    id: 3,
+    title: 'Latest updates, August 1st',
+    content: 'The whole text for the blog post goes here in this key',
+    user_id: 2,
+    updated: new Date().toISOString(),
+    published: new Date().toISOString(),
+  },
+};
+
+const newBlogPost = {
+  title: 'Latest updates, August 1st',
+  content: 'The whole text for the blog post goes here in this key',
+  categoryIds: [1, 2],
+};
+
+const newBlogPostWithoutTitle = {
+  content: 'The whole text for the blog post goes here in this key',
+  categoryIds: [1, 2],
+};
+
+const newBlogPostWithoutContent = {
+  title: 'Latest updates, August 1st',
+  categoryIds: [1, 2],
+};
+
+const newBlogPostWithoutCategories = {
+  title: 'Latest updates, August 1st',
+  content: 'The whole text for the blog post goes here in this key',
+};
+
 module.exports = {
   blogPostsMock,
+  newBlogPost,
+  createNewPostResponse,
+  newBlogPostWithoutTitle,
+  newBlogPostWithoutContent,
+  newBlogPostWithoutCategories,
 };
