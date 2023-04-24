@@ -51,7 +51,7 @@ class UserService {
 
     const token = sign(email);
 
-    return { status: null, payload: token };
+    return { status: null, payload: { token } };
   }
 }
 

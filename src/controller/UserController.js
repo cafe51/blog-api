@@ -27,7 +27,7 @@ class UserController {
 
   registerUser = async (req, res) => {
     try {
-      await this.callServiceMethod(req, res, 200, this.service.registerUser(req.body));
+      await this.callServiceMethod(req, res, 201, this.service.registerUser(req.body));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }

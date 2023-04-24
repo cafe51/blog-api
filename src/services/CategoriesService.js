@@ -11,7 +11,7 @@ class CategoriesService {
     return { status: null, payload: categoryFound };
   }
 
-  async getAllcategories() {
+  async getAllCategories() {
     const categories = await this.model.findAll();
     return { status: null, payload: categories };
   }

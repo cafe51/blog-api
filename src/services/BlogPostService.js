@@ -48,7 +48,6 @@ class BlogPostService {
   async createNewBlogPost({
     userId, title, content, categoryIds,
   }) {
-    console.log(userId);
     const newUser = await this.modelBlogPost.create({
       title,
       content,

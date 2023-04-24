@@ -9,9 +9,9 @@ class CategoriesController {
     return res.status(statusCode).json(payload);
   };
 
-  getAllcategories = async (_req, res) => {
+  getAllCategories = async (_req, res) => {
     try {
-      await this.callServiceMethod(_req, res, 200, this.service.getAllcategories());
+      await this.callServiceMethod(_req, res, 200, this.service.getAllCategories());
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }

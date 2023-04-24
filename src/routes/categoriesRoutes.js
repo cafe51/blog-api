@@ -10,6 +10,6 @@ const controller = new CategoriesController(new CategoriesService());
 router
   .use(authenticator)
   .post('/', controller.createNewCategory)
-  .get('/', controller.getAllcategories);
+  .get('/', controller.getAllCategories);
 
 module.exports = router;
