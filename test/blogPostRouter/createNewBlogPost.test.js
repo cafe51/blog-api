@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
 const { blog_post: blogPosts } = require('../../src/database/models');
-const { blogPostsMock } = require('../mocks');
+// const { blogPostsMock } = require('../mocks');
 const app = require('../../src/app');
 
 const generateToken = (email) => sign(email);

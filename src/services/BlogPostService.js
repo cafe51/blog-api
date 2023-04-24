@@ -27,6 +27,16 @@ class BlogPostService {
     });
     return { type: null, payload: posts };
   }
+
+  async createNewBlogPost({ title, content, categoryId }) {
+    const newUser = await this.modelBlogPost.create({
+      title,
+      content,
+      categoryId,
+    });
+
+    return { type: null, payload: newUser };
+  }
 }
 
 module.exports = BlogPostService;
