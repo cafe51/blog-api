@@ -93,6 +93,30 @@ const newBlogPostWithoutCategories = {
   content: 'The whole text for the blog post goes here in this key',
 };
 
+const newBlogPostWithWrongCategoryIds = {
+  title: 'Latest updates, August 1st',
+  content: 'The whole text for the blog post goes here in this key',
+  categoryIds: '[1, 2]',
+};
+
+const newBlogPostWithEmptyCategoryIds = {
+  title: 'Latest updates, August 1st',
+  content: 'The whole text for the blog post goes here in this key',
+  categoryIds: [],
+};
+
+const newBlogPostWithFalseCategoryIds = {
+  title: 'Latest updates, August 1st',
+  content: 'The whole text for the blog post goes here in this key',
+  categoryIds: [99],
+};
+
+const newBlogPostWithFalseCategoryIds2 = {
+  title: 'Latest updates, August 1st',
+  content: 'The whole text for the blog post goes here in this key',
+  categoryIds: [1, 99],
+};
+
 module.exports = {
   blogPostsMock,
   newBlogPost,
@@ -100,4 +124,8 @@ module.exports = {
   newBlogPostWithoutTitle,
   newBlogPostWithoutContent,
   newBlogPostWithoutCategories,
+  newBlogPostWithWrongCategoryIds,
+  newBlogPostWithEmptyCategoryIds,
+  newBlogPostWithFalseCategoryIds,
+  newBlogPostWithFalseCategoryIds2,
 };

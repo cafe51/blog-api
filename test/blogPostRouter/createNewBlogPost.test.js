@@ -9,6 +9,10 @@ const {
   newBlogPostWithoutTitle,
   newBlogPostWithoutContent,
   newBlogPostWithoutCategories,
+  newBlogPostWithWrongCategoryIds,
+  newBlogPostWithEmptyCategoryIds,
+  newBlogPostWithFalseCategoryIds,
+  newBlogPostWithFalseCategoryIds2,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -32,7 +36,6 @@ describe('Cria um post novo', () => {
       .send(newBlogPost)
       .set('Authorization', token);
 
-    console.log('RESPOSTA ', httpResponse.body);
     expect(httpResponse).to.have.status(201);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('id', createNewPostResponse.dataValues.id);
@@ -49,7 +52,6 @@ describe('Cria um post novo', () => {
       .send(newBlogPostWithoutTitle)
       .set('Authorization', token);
 
-    console.log('RESPOSTA SEM O TITULO', httpResponse.body);
     expect(httpResponse).to.have.status(400);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('message', 'Some required fields are missing');
@@ -75,5 +77,55 @@ describe('Cria um post novo', () => {
     expect(httpResponse).to.have.status(400);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('message', 'Some required fields are missing');
+  });
+  it('retorna erro caso o campo categoryIds seja uma string', async () => {
+    const httpResponse = await chai
+      .request(app)
+      .post('/post')
+      .send(newBlogPostWithWrongCategoryIds)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(400);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
+  });
+  it('retorna erro caso o campo categoryIds seja um array vazio', async () => {
+    const httpResponse = await chai
+      .request(app)
+      .post('/post')
+      .send(newBlogPostWithEmptyCategoryIds)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(400);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
+  });
+  it('retorna erro caso a categoryId inserida não corresponda a uma categoria no db', async () => {
+    const stub = sinon.stub(blogPosts, 'findByPk');
+    stub.resolves(null);
+
+    const httpResponse = await chai
+      .request(app)
+      .post('/post')
+      .send(newBlogPostWithFalseCategoryIds)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(400);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
+  });
+  it('retorna erro caso a categoryId inserida não corresponda a uma categoria no db', async () => {
+    const stub = sinon.stub(blogPosts, 'findByPk');
+    stub.resolves(null);
+
+    const httpResponse = await chai
+      .request(app)
+      .post('/post')
+      .send(newBlogPostWithFalseCategoryIds2)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(400);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
   });
 });
