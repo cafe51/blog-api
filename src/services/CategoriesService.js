@@ -6,6 +6,11 @@ class CategoriesService {
     this.model = category;
   }
 
+  async getCategoryById(id) {
+    const categoryFound = await this.model.findByPk(id);
+    return { status: null, payload: categoryFound };
+  }
+
   async getAllcategories() {
     const categories = await this.model.findAll();
     return { status: null, payload: categories };

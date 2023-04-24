@@ -27,9 +27,9 @@ class BlogPostController {
 
   createNewBlogPost = async (req, res) => {
     try {
-      const response = await new UserService().getUserByEmail(req.user);
+      const userResponse = await new UserService().getUserByEmail(req.user);
       const { status, payload } = await this.service.createNewBlogPost({
-        userId: response.payload.dataValues.id, ...req.body,
+        userId: userResponse.payload.dataValues.id, ...req.body,
       });
       if (status) return res.status(status).json({ message: payload });
       return res.status(201).json(payload);
