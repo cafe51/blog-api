@@ -61,6 +61,31 @@ const blogPostsMock = [
   },
 ];
 
+const postUpdated = {
+  id: 3,
+  title: 'Latest updates, August 1st',
+  content: 'new update',
+  user_id: 1,
+  published: '2022-05-18T18:00:01.000Z',
+  updated: '2022-05-18T18:07:32.000Z',
+  user: {
+    id: 1,
+    displayName: 'Lewis Hamilton',
+    email: 'lewishamilton@gmail.com',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+  },
+  categories: [
+    {
+      id: 1,
+      name: 'Inovação',
+    },
+    {
+      id: 2,
+      name: 'Escola',
+    },
+  ],
+};
+
 const createNewPostResponse = {
   dataValues: {
     id: 3,
@@ -120,6 +145,7 @@ const newBlogPostWithFalseCategoryIds2 = {
 module.exports = {
   blogPostsMock,
   newBlogPost,
+  postUpdated,
   createNewPostResponse,
   newBlogPostWithoutTitle,
   newBlogPostWithoutContent,

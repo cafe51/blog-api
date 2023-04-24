@@ -68,8 +68,7 @@ class BlogPostService {
 
   async updatePostService(id, body) {
     const { title, content } = body;
-    const post = await this.modelBlogPost.findByPk(id);
-    await post.update({ title, content });
+    await this.modelBlogPost.update({ title, content }, { where: { id } });
   }
 }
 
