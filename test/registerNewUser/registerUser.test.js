@@ -14,7 +14,7 @@ const app = require('../../src/app');
 
 chai.use(chaiHttp);
 
-describe('User API', () => {
+describe('Testa o cadastro de novo usuário', () => {
   afterEach(() => {
     sinon.restore();
   });

@@ -5,6 +5,7 @@ const { sign } = require('../../src/utils/jwt');
 const { blog_post: blogPosts, user } = require('../../src/database/models');
 const {
   postUpdated,
+  userMock,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -20,24 +21,23 @@ describe('Teste de delete post', () => {
 
   it('Deleta um post com sucesso', async () => {
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
-    stubFindPk.onCall(0).resolves({ dataValues: postUpdated });
-    stubFindPk.onCall(1).resolves(postUpdated);
+    stubFindPk.resolves({ dataValues: postUpdated });
+
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves({ dataValues: userMock });
 
     const stubDelete = sinon.stub(blogPosts, 'destroy');
     stubDelete.resolves(1);
 
-    const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves(1);
-
     const httpResponse = await chai
       .request(app)
-      .delete('/post/2')
+      .delete('/post/3')
       .set('Authorization', token);
 
-    if (httpResponse.body.error) {
+    if (httpResponse.status !== 204) {
       console.log('****************************************');
       console.log('****************************************');
-      console.log('ERRO NO DELETE', httpResponse.body.error);
+      console.log('ERRO NO DELETE', httpResponse.body);
       console.log('****************************************');
       console.log('****************************************');
     }

@@ -27,21 +27,19 @@ const blogPostUpdateWithoutContent = {
 };
 
 const userFound = {
-  dataValues: {
-    id: 1,
-    displayName: 'Lewis Hamilton',
-    email: 'lewishamilton@gmail.com',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
-  },
+  id: 1,
+  displayName: 'Lewis Hamilton',
+  email: 'lewishamilton@gmail.com',
+  image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+
 };
 
 const userFound2 = {
-  dataValues: {
-    id: 2,
-    displayName: 'Lewis Hamilton',
-    email: 'lewishamilton@gmail.com',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
-  },
+  id: 2,
+  displayName: 'Lewis Hamilton',
+  email: 'lewishamilton@gmail.com',
+  image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+
 };
 
 describe('Teste de atualização de post', () => {
@@ -58,7 +56,7 @@ describe('Teste de atualização de post', () => {
     stubUpdate.resolves(postUpdated);
 
     const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves(userFound);
+    stubFindOneUser.resolves({ dataValues: userFound });
 
     const httpResponse = await chai
       .request(app)
@@ -81,11 +79,11 @@ describe('Teste de atualização de post', () => {
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
     stubFindPk.resolves({ dataValues: postUpdated });
 
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves({ dataValues: userFound2 });
+
     const stubUpdate = sinon.stub(blogPosts, 'update');
     stubUpdate.resolves(postUpdated);
-
-    const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves(userFound2);
 
     const httpResponse = await chai
       .request(app)
@@ -101,6 +99,9 @@ describe('Teste de atualização de post', () => {
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
     stubFindPk.resolves(null);
 
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves({ dataValues: userFound });
+
     const httpResponse = await chai
       .request(app)
       .put('/post/9999')
@@ -112,8 +113,11 @@ describe('Teste de atualização de post', () => {
     expect(httpResponse.body).to.be.deep.equal({ message: 'Post does not exist' });
   });
   it('É impedido de atualizar um post sem o informar o título', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves({ dataValues: postUpdated });
+
     const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves(userFound);
+    stubFindOneUser.resolves({ dataValues: userFound });
 
     const httpResponse = await chai
       .request(app)
@@ -126,8 +130,11 @@ describe('Teste de atualização de post', () => {
     expect(httpResponse.body).to.be.deep.equal({ message: 'Some required fields are missing' });
   });
   it('É impedido de atualizar um post sem o informar o título', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves({ dataValues: postUpdated });
+
     const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves(userFound);
+    stubFindOneUser.resolves({ dataValues: userFound });
 
     const httpResponse = await chai
       .request(app)
