@@ -11,12 +11,12 @@ const token = generateToken('test@example.com');
 const { expect } = chai;
 chai.use(chaiHttp);
 
-describe('User API', () => {
+describe('Teste de get post by Id', () => {
   afterEach(() => {
     sinon.restore();
   });
 
-  it('retorna todos os posts', async () => {
+  it('retorna post por Id com sucesso', async () => {
     const stub = sinon.stub(blogPosts, 'findAll');
     stub.resolves(blogPostsMock[0]);
 

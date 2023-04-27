@@ -14,12 +14,12 @@ const app = require('../../src/app');
 
 chai.use(chaiHttp);
 
-describe('User API', () => {
+describe('Teste de get all categories', () => {
   afterEach(() => {
     sinon.restore();
   });
 
-  it('retorna todos as categorias', async () => {
+  it('retorna todos as categorias com sucesso', async () => {
     const categories = [
       { id: 1, name: 'Inovação' },
       { id: 2, name: 'Escola' },

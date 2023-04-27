@@ -14,12 +14,12 @@ const app = require('../../src/app');
 
 chai.use(chaiHttp);
 
-describe('User API', () => {
+describe('Teste de get user by Id', () => {
   afterEach(() => {
     sinon.restore();
   });
 
-  it('retorna um usuário por id', async () => {
+  it('retorna um usuário por id com sucesso', async () => {
     const userMock = {
       id: 1,
       display_name: 'User1',

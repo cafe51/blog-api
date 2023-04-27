@@ -36,7 +36,7 @@ class BlogPostService {
     return { status: null, payload: post };
   }
 
-  async createNewPostCategorieAssociation(postId, categoryIds) {
+  async createNewPostCategoriesAssociation(postId, categoryIds) {
     const createPromises = categoryIds.map((categoryId) => this.modelPostCategories.create({
       [POSTID]: postId,
       [CATEGORYID]: categoryId,
@@ -56,7 +56,7 @@ class BlogPostService {
       published: new Date().toISOString(),
     });
 
-    await this.createNewPostCategorieAssociation(newUser.dataValues.id, categoryIds);
+    await this.createNewPostCategoriesAssociation(newUser.dataValues.id, categoryIds);
 
     const userWithoutId = { ...newUser.dataValues };
     delete userWithoutId[USERID];
@@ -66,9 +66,14 @@ class BlogPostService {
     return { status: null, payload: response };
   }
 
-  async updatePostService(id, body) {
+  async updatePost(id, body) {
     const { title, content } = body;
     await this.modelBlogPost.update({ title, content }, { where: { id } });
+  }
+
+  async deletePost(id) {
+    await this.modelBlogPost.destroy({ where: { id } });
+    return { type: null, payload: 'Post deleted successfully' };
   }
 }
 

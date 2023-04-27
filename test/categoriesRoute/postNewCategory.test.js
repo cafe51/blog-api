@@ -13,12 +13,12 @@ const newCategory = { name: 'Typescript' };
 const newCategoryCreateResponse = [{ id: 4, name: 'Typescript' }, true];
 const categoryAlreadyExists = [{ id: 4, name: 'Typescript' }, false];
 
-describe('User API', () => {
+describe('Teste de cadastro', () => {
   beforeEach(() => {
     sinon.restore();
   });
 
-  it('cadastra uma nova categoria', async () => {
+  it('Cadastra uma nova categoria com sucesso', async () => {
     const stub = sinon.stub(category, 'findOrCreate');
     stub.resolves(newCategoryCreateResponse);
 

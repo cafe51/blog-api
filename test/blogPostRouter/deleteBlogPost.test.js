@@ -13,7 +13,7 @@ const token = generateToken('lewishamilton');
 const { expect } = chai;
 chai.use(chaiHttp);
 
-describe('Atualiza um post', () => {
+describe('Teste de delete post', () => {
   afterEach(() => {
     sinon.restore();
   });
@@ -31,8 +31,16 @@ describe('Atualiza um post', () => {
 
     const httpResponse = await chai
       .request(app)
-      .delete('/post/3')
+      .delete('/post/2')
       .set('Authorization', token);
+
+    if (httpResponse.body.error) {
+      console.log('****************************************');
+      console.log('****************************************');
+      console.log('ERRO NO DELETE', httpResponse.body.error);
+      console.log('****************************************');
+      console.log('****************************************');
+    }
 
     expect(httpResponse).to.have.status(204);
   });

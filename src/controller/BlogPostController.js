@@ -38,10 +38,18 @@ class BlogPostController {
     }
   };
 
-  updatePostService = async (req, res) => {
+  updatePost = async (req, res) => {
     try {
-      await this.service.updatePostService(req.params.id, req.body);
+      await this.service.updatePost(req.params.id, req.body);
       await this.callServiceMethod(req, res, 200, this.service.getPostById(req.params.id));
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
+
+  deletePost = async (req, res) => {
+    try {
+      await this.callServiceMethod(req, res, 204, this.service.deletePost(req.params.id));
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }

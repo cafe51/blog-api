@@ -44,7 +44,7 @@ const userFound2 = {
   },
 };
 
-describe('Atualiza um post', () => {
+describe('Teste de atualização de post', () => {
   afterEach(() => {
     sinon.restore();
   });
@@ -62,10 +62,17 @@ describe('Atualiza um post', () => {
 
     const httpResponse = await chai
       .request(app)
-      .put('/post/3')
+      .put('/post/2')
       .send(blogPostUpdate)
       .set('Authorization', token);
 
+    if (httpResponse.body.error) {
+      console.log('****************************************');
+      console.log('****************************************');
+      console.log('ERRO NO UPDATE', httpResponse.body.error);
+      console.log('****************************************');
+      console.log('****************************************');
+    }
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.be.deep.equal(postUpdated);

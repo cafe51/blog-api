@@ -14,12 +14,12 @@ const app = require('../../src/app');
 
 chai.use(chaiHttp);
 
-describe('User API', () => {
+describe('Teste de get all users', () => {
   afterEach(() => {
     sinon.restore();
   });
 
-  it('retorna todos os usuários', async () => {
+  it('retorna todos os usuários com sucesso', async () => {
     const users = [
       { id: 1, display_name: 'User1', email: 'user1@example.com' },
       { id: 2, display_name: 'User2', email: 'user2@example.com' },

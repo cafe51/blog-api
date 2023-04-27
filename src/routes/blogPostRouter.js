@@ -15,6 +15,6 @@ router
   .post('/', verifyNewBlogPostBodyTitleAndContent, verifyNewBlogPostBodyCategories, controller.createNewBlogPost)
   .get('/', controller.getAllposts)
   .get('/:id', controller.getPostById)
-  .put('/:id', verifyIfUserOwnsThePost, verifyNewBlogPostBodyTitleAndContent, controller.updatePostService);
+  .put('/:id', verifyIfUserOwnsThePost, verifyNewBlogPostBodyTitleAndContent, controller.updatePost);
 
 module.exports = router;

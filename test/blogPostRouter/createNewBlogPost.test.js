@@ -21,7 +21,7 @@ const token = generateToken('MichaelSchumacher@gmail.com');
 const { expect } = chai;
 chai.use(chaiHttp);
 
-describe('Cria um post novo', () => {
+describe('Teste de create new post', () => {
   afterEach(() => {
     sinon.restore();
   });
