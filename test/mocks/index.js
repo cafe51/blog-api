@@ -142,10 +142,17 @@ const newBlogPostWithFalseCategoryIds2 = {
   categoryIds: [1, 99],
 };
 
-const userMock = {
+const userFound = {
   id: 1,
-  display_name: 'User1',
-  email: 'user1@example.com',
+  display_name: 'Lewis Hamilton',
+  email: 'lewishamilton@gmail.com',
+  image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+};
+
+const userFound2 = {
+  id: 2,
+  display_name: 'Zé Ronaldo',
+  email: 'joseronaldo@gmail.com',
   image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
 };
 
@@ -161,5 +168,6 @@ module.exports = {
   newBlogPostWithEmptyCategoryIds,
   newBlogPostWithFalseCategoryIds,
   newBlogPostWithFalseCategoryIds2,
-  userMock,
+  userFound,
+  userFound2,
 };

@@ -5,6 +5,8 @@ const { sign } = require('../../src/utils/jwt');
 const { blog_post: blogPosts, user } = require('../../src/database/models');
 const {
   postUpdated,
+  userFound,
+  userFound2,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -24,22 +26,6 @@ const blogPostUpdateWithoutTitle = {
 
 const blogPostUpdateWithoutContent = {
   title: 'Latest updates, August 1st',
-};
-
-const userFound = {
-  id: 1,
-  displayName: 'Lewis Hamilton',
-  email: 'lewishamilton@gmail.com',
-  image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
-
-};
-
-const userFound2 = {
-  id: 2,
-  displayName: 'Lewis Hamilton',
-  email: 'lewishamilton@gmail.com',
-  image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
-
 };
 
 describe('Teste de atualização de post', () => {

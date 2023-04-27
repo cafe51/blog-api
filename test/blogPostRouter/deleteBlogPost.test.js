@@ -5,7 +5,8 @@ const { sign } = require('../../src/utils/jwt');
 const { blog_post: blogPosts, user } = require('../../src/database/models');
 const {
   postUpdated,
-  userMock,
+  userFound,
+  userFound2,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -24,7 +25,7 @@ describe('Teste de delete post', () => {
     stubFindPk.resolves({ dataValues: postUpdated });
 
     const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves({ dataValues: userMock });
+    stubFindOneUser.resolves({ dataValues: userFound });
 
     const stubDelete = sinon.stub(blogPosts, 'destroy');
     stubDelete.resolves(1);
@@ -43,5 +44,20 @@ describe('Teste de delete post', () => {
     }
 
     expect(httpResponse).to.have.status(204);
+  });
+  it('falha ao tentar deletar um post sem autorização', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves({ dataValues: postUpdated });
+
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves({ dataValues: userFound2 });
+
+    const httpResponse = await chai
+      .request(app)
+      .delete('/post/3')
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(401);
+    expect(httpResponse.body).to.have.property('message', 'Unauthorized user');
   });
 });

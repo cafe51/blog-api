@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
 const { user } = require('../../src/database/models');
-const { userMock } = require('../mocks');
+const { userFound } = require('../mocks');
 
 function generateToken(email) {
   return sign(email);
@@ -24,7 +24,7 @@ describe('Teste de get user by Id', () => {
     const token = generateToken('test@example.com');
 
     const stub = sinon.stub(user, 'findByPk');
-    stub.resolves(userMock);
+    stub.resolves(userFound);
 
     const httpResponse = await chai
       .request(app)
@@ -33,8 +33,8 @@ describe('Teste de get user by Id', () => {
     expect(httpResponse).to.have.status(200);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('id', 1);
-    expect(httpResponse.body).to.have.property('display_name', 'User1');
-    expect(httpResponse.body).to.have.property('email', 'user1@example.com');
+    expect(httpResponse.body).to.have.property('display_name', 'Lewis Hamilton');
+    expect(httpResponse.body).to.have.property('email', 'lewishamilton@gmail.com');
   });
   it('retorna uma mensagem de erro caso o usuário não exista no banco', async () => {
     const token = generateToken('test@example.com');

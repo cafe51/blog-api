@@ -18,7 +18,7 @@ const {
   newBlogPostWithEmptyCategoryIds,
   newBlogPostWithFalseCategoryIds,
   newBlogPostWithFalseCategoryIds2,
-  userMock,
+  userFound,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -44,7 +44,7 @@ describe('Teste de create new post', () => {
     });
 
     const stubFindUser = sinon.stub(user, 'findOne');
-    stubFindUser.resolves({ dataValues: userMock });
+    stubFindUser.resolves({ dataValues: userFound });
 
     const stubCreatePost = sinon.stub(blogPosts, 'create');
     stubCreatePost.resolves(createNewPostResponse);
