@@ -1,5 +1,3 @@
-const UserService = require('../services/UserService');
-
 class BlogPostController {
   constructor(service) {
     this.service = service;
@@ -29,9 +27,8 @@ class BlogPostController {
 
   createNewBlogPost = async (req, res) => {
     try {
-      const userResponse = await new UserService().getUserByEmail(req.user);
       await this.callServiceMethod(req, res, 201, this.service.createNewBlogPost({
-        userId: userResponse.payload.dataValues.id, ...req.body,
+        userId: req.user.id, ...req.body,
       }));
     } catch (err) {
       return res.status(500).json({ error: err.message });

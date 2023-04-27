@@ -11,9 +11,9 @@ const authenticator = (req, res, next) => {
   }
 
   try {
-    const { email } = validateToken(token);
+    const { user } = validateToken(token);
 
-    req.user = email;
+    req.user = user;
 
     next();
     return null;

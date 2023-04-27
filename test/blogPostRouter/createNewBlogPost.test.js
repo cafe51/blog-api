@@ -6,7 +6,6 @@ const {
   blog_post: blogPosts,
   posts_categories: postsCategories,
   category,
-  user,
 } = require('../../src/database/models');
 const {
   createNewPostResponse,
@@ -18,7 +17,6 @@ const {
   newBlogPostWithEmptyCategoryIds,
   newBlogPostWithFalseCategoryIds,
   newBlogPostWithFalseCategoryIds2,
-  userFound,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -43,9 +41,6 @@ describe('Teste de create new post', () => {
       name: 'Escola',
     });
 
-    const stubFindUser = sinon.stub(user, 'findOne');
-    stubFindUser.resolves({ dataValues: userFound });
-
     const stubCreatePost = sinon.stub(blogPosts, 'create');
     stubCreatePost.resolves(createNewPostResponse);
 
@@ -58,12 +53,13 @@ describe('Teste de create new post', () => {
       .send(newBlogPost)
       .set('Authorization', token);
 
+    console.log('AAAAAAAAAAAAAA', httpResponse.body);
     expect(httpResponse).to.have.status(201);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('id', createNewPostResponse.dataValues.id);
     expect(httpResponse.body).to.have.property('title', createNewPostResponse.dataValues.title);
     expect(httpResponse.body).to.have.property('content', createNewPostResponse.dataValues.content);
-    expect(httpResponse.body).to.have.property('userId', createNewPostResponse.dataValues.user_id);
+    expect(httpResponse.body).to.have.property('userId', createNewPostResponse.dataValues.userId);
     expect(httpResponse.body).to.have.property('updated');
     expect(httpResponse.body).to.have.property('published');
   });

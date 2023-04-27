@@ -86,12 +86,37 @@ const postUpdated = {
   ],
 };
 
+const postUpdated2 = {
+  id: 4,
+  title: 'Latest updates, August 1st',
+  content: 'new update',
+  user_id: 2,
+  published: '2022-05-18T18:00:01.000Z',
+  updated: '2022-05-18T18:07:32.000Z',
+  user: {
+    id: 1,
+    displayName: 'José Ronaldo',
+    email: 'zeronaldo@gmail.com',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+  },
+  categories: [
+    {
+      id: 1,
+      name: 'Inovação',
+    },
+    {
+      id: 2,
+      name: 'Escola',
+    },
+  ],
+};
+
 const createNewPostResponse = {
   dataValues: {
     id: 3,
     title: 'Latest updates, August 1st',
     content: 'The whole text for the blog post goes here in this key',
-    user_id: 1,
+    userId: 1,
     updated: new Date().toISOString(),
     published: new Date().toISOString(),
   },
@@ -170,4 +195,5 @@ module.exports = {
   newBlogPostWithFalseCategoryIds2,
   userFound,
   userFound2,
+  postUpdated2,
 };

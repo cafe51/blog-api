@@ -4,8 +4,8 @@ const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
 const { user } = require('../../src/database/models');
 
-function generateToken(email) {
-  return sign(email);
+function generateToken(insertUser) {
+  return sign(insertUser);
 }
 
 const { expect } = chai;
@@ -14,6 +14,20 @@ const app = require('../../src/app');
 
 chai.use(chaiHttp);
 
+const newUser = {
+  displayName: 'newUserdaSilva',
+  email: 'new_user@email.com',
+  password: '123456',
+  image: 'image.jpg',
+};
+
+const newUser2 = {
+  display_name: 'newUserdaSilva',
+  email: 'new_user@email.com',
+  password: '123456',
+  image: 'image.jpg',
+};
+
 describe('Testa o cadastro de novo usuário', () => {
   afterEach(() => {
     sinon.restore();
@@ -21,16 +35,9 @@ describe('Testa o cadastro de novo usuário', () => {
 
   it('cadastra um novo usuário', async () => {
     const userServiceStub = sinon.stub(user, 'findOrCreate');
-    userServiceStub.resolves('registrado');
+    userServiceStub.resolves([newUser2, true]);
 
-    const newUser = {
-      displayName: 'newUserdaSilva',
-      email: 'new_user@email.com',
-      password: '123456',
-      image: 'image.jpg',
-    };
-
-    const token = generateToken('new_user@email.com');
+    const token = generateToken(newUser2);
 
     const httpResponse = await chai
       .request(app)
@@ -42,27 +49,18 @@ describe('Testa o cadastro de novo usuário', () => {
   });
   it('cadastra um novo usuário que já existe', async () => {
     const userServiceStub = sinon.stub(user, 'findOrCreate');
-    userServiceStub.resolves('');
-
-    const newUser = {
-      displayName: 'newUserdaSilva',
-      email: 'new_user@email.com',
-      password: '123456',
-      image: 'image.jpg',
-    };
+    userServiceStub.resolves([newUser2, false]);
 
     const httpResponse = await chai
       .request(app)
       .post('/user')
       .send(newUser);
+
     expect(httpResponse).to.have.status(409);
     expect(httpResponse.body).to.be.an('object');
     expect(httpResponse.body).to.have.property('message', 'User already registered');
   });
   it('cadastra um novo usuário com o nome errado', async () => {
-    const userServiceStub = sinon.stub(user, 'findOrCreate');
-    userServiceStub.resolves('registrado');
-
     const newUserWithInvalidName = {
       displayName: 'A',
       email: 'new_user@email.com',
@@ -79,9 +77,6 @@ describe('Testa o cadastro de novo usuário', () => {
     expect(httpResponse.body).to.have.property('message', '"displayName" length must be at least 8 characters long');
   });
   it('cadastra um novo usuário sem inserir o nome', async () => {
-    const userServiceStub = sinon.stub(user, 'findOrCreate');
-    userServiceStub.resolves('registrado');
-
     const newUserWithoutName = {
       email: 'new_user@email.com',
       password: '123456',
@@ -97,9 +92,6 @@ describe('Testa o cadastro de novo usuário', () => {
     expect(httpResponse.body).to.have.property('message', '"displayName" is required');
   });
   it('cadastra um novo usuário com o email errado', async () => {
-    const userServiceStub = sinon.stub(user, 'findOrCreate');
-    userServiceStub.resolves('registrado');
-
     const newUserWithInvalidEmail = {
       displayName: 'newUserdaSilva',
       email: 'invalidEmail',
@@ -116,9 +108,6 @@ describe('Testa o cadastro de novo usuário', () => {
     expect(httpResponse.body).to.have.property('message', '"email" must be a valid email');
   });
   it('cadastra um novo usuário sem inserir o email', async () => {
-    const userServiceStub = sinon.stub(user, 'findOrCreate');
-    userServiceStub.resolves('registrado');
-
     const newUserWithoutEmail = {
       displayName: 'newUserdaSilva',
       password: '123456',
@@ -153,9 +142,6 @@ describe('Testa o cadastro de novo usuário', () => {
     expect(httpResponse.body).to.have.property('message', '"password" length must be at least 6 characters long');
   });
   it('cadastra um novo usuário sem inserir a senha', async () => {
-    const userServiceStub = sinon.stub(user, 'findOrCreate');
-    userServiceStub.resolves('registrado');
-
     const newUserWithoutPassword = {
       displayName: 'newUserdaSilva',
       email: 'new_user@email.com',

@@ -10,7 +10,7 @@ const sign = (payload) => {
     expiresIn: '7d',
     algorithm: 'HS256',
   };
-  const token = jwt.sign({ data: { email: payload } }, secret, jwtConfig);
+  const token = jwt.sign({ data: { user: payload } }, secret, jwtConfig);
   return token;
 };
 

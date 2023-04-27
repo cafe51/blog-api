@@ -25,7 +25,7 @@ class LoginController {
           .json({ message: authentication.payload });
       }
 
-      const token = sign(user.payload.dataValues.email);
+      const token = sign(user.payload.dataValues);
 
       return res
         .status(200)

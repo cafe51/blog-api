@@ -49,7 +49,14 @@ class UserService {
       return { status: errorMap.mapError('CONFLICT'), payload: 'User already registered' };
     }
 
-    const token = sign(email);
+    const token = sign(
+      {
+        [NAME]: displayName,
+        email,
+        password,
+        image,
+      },
+    );
 
     return { status: null, payload: { token } };
   }

@@ -2,16 +2,16 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
-const { blog_post: blogPosts, user } = require('../../src/database/models');
+const { blog_post: blogPosts } = require('../../src/database/models');
 const {
   postUpdated,
+  postUpdated2,
   userFound,
-  userFound2,
 } = require('../mocks');
 const app = require('../../src/app');
 
 const generateToken = (email) => sign(email);
-const token = generateToken('lewishamilton');
+const token = generateToken(userFound);
 const { expect } = chai;
 chai.use(chaiHttp);
 
@@ -41,9 +41,6 @@ describe('Teste de atualização de post', () => {
     const stubUpdate = sinon.stub(blogPosts, 'update');
     stubUpdate.resolves(postUpdated);
 
-    const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves({ dataValues: userFound });
-
     const httpResponse = await chai
       .request(app)
       .put('/post/2')
@@ -63,13 +60,10 @@ describe('Teste de atualização de post', () => {
   });
   it('É impedido de atualizar um post por não ser o dono do post', async () => {
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
-    stubFindPk.resolves({ dataValues: postUpdated });
-
-    const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves({ dataValues: userFound2 });
+    stubFindPk.resolves({ dataValues: postUpdated2 });
 
     const stubUpdate = sinon.stub(blogPosts, 'update');
-    stubUpdate.resolves(postUpdated);
+    stubUpdate.resolves(postUpdated2);
 
     const httpResponse = await chai
       .request(app)
@@ -85,9 +79,6 @@ describe('Teste de atualização de post', () => {
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
     stubFindPk.resolves(null);
 
-    const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves({ dataValues: userFound });
-
     const httpResponse = await chai
       .request(app)
       .put('/post/9999')
@@ -102,9 +93,6 @@ describe('Teste de atualização de post', () => {
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
     stubFindPk.resolves({ dataValues: postUpdated });
 
-    const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves({ dataValues: userFound });
-
     const httpResponse = await chai
       .request(app)
       .put('/post/2')
@@ -118,9 +106,6 @@ describe('Teste de atualização de post', () => {
   it('É impedido de atualizar um post sem o informar o título', async () => {
     const stubFindPk = sinon.stub(blogPosts, 'findByPk');
     stubFindPk.resolves({ dataValues: postUpdated });
-
-    const stubFindOneUser = sinon.stub(user, 'findOne');
-    stubFindOneUser.resolves({ dataValues: userFound });
 
     const httpResponse = await chai
       .request(app)
