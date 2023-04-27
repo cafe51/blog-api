@@ -60,4 +60,20 @@ describe('Teste de delete post', () => {
     expect(httpResponse).to.have.status(401);
     expect(httpResponse.body).to.have.property('message', 'Unauthorized user');
   });
+
+  it('falha ao tentar deletar um post que não existe', async () => {
+    const stubFindPk = sinon.stub(blogPosts, 'findByPk');
+    stubFindPk.resolves(null);
+
+    const stubFindOneUser = sinon.stub(user, 'findOne');
+    stubFindOneUser.resolves({ dataValues: userFound2 });
+
+    const httpResponse = await chai
+      .request(app)
+      .delete('/post/99')
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(404);
+    expect(httpResponse.body).to.have.property('message', 'Post does not exist');
+  });
 });
