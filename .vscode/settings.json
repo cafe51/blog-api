@@ -4,6 +4,7 @@
     "Allposts",
     "CATEGORYID",
     "POSTID",
+    "stubfind",
     "USERID"
   ]
 }

@@ -3,6 +3,7 @@ const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
 const { user } = require('../../src/database/models');
+const { userMock } = require('../mocks');
 
 function generateToken(email) {
   return sign(email);
@@ -20,13 +21,6 @@ describe('Teste de get user by Id', () => {
   });
 
   it('retorna um usuário por id com sucesso', async () => {
-    const userMock = {
-      id: 1,
-      display_name: 'User1',
-      email: 'user1@example.com',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
-    };
-
     const token = generateToken('test@example.com');
 
     const stub = sinon.stub(user, 'findByPk');

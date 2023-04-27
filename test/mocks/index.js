@@ -91,7 +91,7 @@ const createNewPostResponse = {
     id: 3,
     title: 'Latest updates, August 1st',
     content: 'The whole text for the blog post goes here in this key',
-    user_id: 2,
+    user_id: 1,
     updated: new Date().toISOString(),
     published: new Date().toISOString(),
   },
@@ -142,6 +142,13 @@ const newBlogPostWithFalseCategoryIds2 = {
   categoryIds: [1, 99],
 };
 
+const userMock = {
+  id: 1,
+  display_name: 'User1',
+  email: 'user1@example.com',
+  image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+};
+
 module.exports = {
   blogPostsMock,
   newBlogPost,
@@ -154,4 +161,5 @@ module.exports = {
   newBlogPostWithEmptyCategoryIds,
   newBlogPostWithFalseCategoryIds,
   newBlogPostWithFalseCategoryIds2,
+  userMock,
 };

@@ -2,7 +2,12 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const { sign } = require('../../src/utils/jwt');
-const { blog_post: blogPosts, posts_categories: postsCategories } = require('../../src/database/models');
+const {
+  blog_post: blogPosts,
+  posts_categories: postsCategories,
+  category,
+  user,
+} = require('../../src/database/models');
 const {
   createNewPostResponse,
   newBlogPost,
@@ -13,6 +18,7 @@ const {
   newBlogPostWithEmptyCategoryIds,
   newBlogPostWithFalseCategoryIds,
   newBlogPostWithFalseCategoryIds2,
+  userMock,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -27,11 +33,24 @@ describe('Teste de create new post', () => {
   });
 
   it('cria um novo post com sucesso', async () => {
-    const stub = sinon.stub(blogPosts, 'create');
-    stub.resolves(createNewPostResponse);
+    const stubfindByPk = sinon.stub(category, 'findByPk');
+    stubfindByPk.onCall(0).resolves({
+      id: 1,
+      name: 'Inovação',
+    });
+    stubfindByPk.onCall(1).resolves({
+      id: 2,
+      name: 'Escola',
+    });
 
-    const stub2 = sinon.stub(postsCategories, 'create');
-    stub2.resolves(null);
+    const stubFindUser = sinon.stub(user, 'findOne');
+    stubFindUser.resolves({ dataValues: userMock });
+
+    const stubCreatePost = sinon.stub(blogPosts, 'create');
+    stubCreatePost.resolves(createNewPostResponse);
+
+    const createPostCategories = sinon.stub(postsCategories, 'create');
+    createPostCategories.resolves(null);
 
     const httpResponse = await chai
       .request(app)
@@ -47,6 +66,38 @@ describe('Teste de create new post', () => {
     expect(httpResponse.body).to.have.property('userId', createNewPostResponse.dataValues.user_id);
     expect(httpResponse.body).to.have.property('updated');
     expect(httpResponse.body).to.have.property('published');
+  });
+  it('retorna erro caso a categoryId inserida não corresponda a uma categoria no db', async () => {
+    const stubfindByPk = sinon.stub(category, 'findByPk');
+    stubfindByPk.resolves(false);
+
+    const httpResponse = await chai
+      .request(app)
+      .post('/post')
+      .send(newBlogPostWithFalseCategoryIds)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(400);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
+  });
+  it('retorna erro caso a categoryId inserida não corresponda a uma categoria no db', async () => {
+    const stubfindByPk = sinon.stub(category, 'findByPk');
+    stubfindByPk.onCall(0).resolves({
+      id: 1,
+      name: 'Inovação',
+    });
+    stubfindByPk.onCall(1).resolves(false);
+
+    const httpResponse = await chai
+      .request(app)
+      .post('/post')
+      .send(newBlogPostWithFalseCategoryIds2)
+      .set('Authorization', token);
+
+    expect(httpResponse).to.have.status(400);
+    expect(httpResponse.body).to.be.an('object');
+    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
   });
   it('retorna erro caso não seja passado o título', async () => {
     const httpResponse = await chai
@@ -97,34 +148,6 @@ describe('Teste de create new post', () => {
       .request(app)
       .post('/post')
       .send(newBlogPostWithEmptyCategoryIds)
-      .set('Authorization', token);
-
-    expect(httpResponse).to.have.status(400);
-    expect(httpResponse.body).to.be.an('object');
-    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
-  });
-  it('retorna erro caso a categoryId inserida não corresponda a uma categoria no db', async () => {
-    const stub = sinon.stub(blogPosts, 'findByPk');
-    stub.resolves(null);
-
-    const httpResponse = await chai
-      .request(app)
-      .post('/post')
-      .send(newBlogPostWithFalseCategoryIds)
-      .set('Authorization', token);
-
-    expect(httpResponse).to.have.status(400);
-    expect(httpResponse.body).to.be.an('object');
-    expect(httpResponse.body).to.have.property('message', '"categoryIds" not found');
-  });
-  it('retorna erro caso a categoryId inserida não corresponda a uma categoria no db', async () => {
-    const stub = sinon.stub(blogPosts, 'findByPk');
-    stub.resolves(null);
-
-    const httpResponse = await chai
-      .request(app)
-      .post('/post')
-      .send(newBlogPostWithFalseCategoryIds2)
       .set('Authorization', token);
 
     expect(httpResponse).to.have.status(400);
