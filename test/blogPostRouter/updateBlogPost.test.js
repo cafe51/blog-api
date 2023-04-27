@@ -5,7 +5,6 @@ const { sign } = require('../../src/utils/jwt');
 const { blog_post: blogPosts, user } = require('../../src/database/models');
 const {
   postUpdated,
-  blogPostsMock,
 } = require('../mocks');
 const app = require('../../src/app');
 
@@ -56,7 +55,7 @@ describe('Atualiza um post', () => {
     stubFindPk.onCall(1).resolves(postUpdated);
 
     const stubUpdate = sinon.stub(blogPosts, 'update');
-    stubUpdate.resolves(blogPostsMock[3]);
+    stubUpdate.resolves(postUpdated);
 
     const stubFindOneUser = sinon.stub(user, 'findOne');
     stubFindOneUser.resolves(userFound);
@@ -76,7 +75,7 @@ describe('Atualiza um post', () => {
     stubFindPk.resolves({ dataValues: postUpdated });
 
     const stubUpdate = sinon.stub(blogPosts, 'update');
-    stubUpdate.resolves(blogPostsMock[3]);
+    stubUpdate.resolves(postUpdated);
 
     const stubFindOneUser = sinon.stub(user, 'findOne');
     stubFindOneUser.resolves(userFound2);
