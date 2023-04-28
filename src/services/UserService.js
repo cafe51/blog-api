@@ -60,6 +60,11 @@ class UserService {
 
     return { status: null, payload: { token } };
   }
+
+  async deleteUserByMe(id) {
+    await this.model.destroy({ where: { id } });
+    return { status: null, payload: null };
+  }
 }
 
 module.exports = UserService;

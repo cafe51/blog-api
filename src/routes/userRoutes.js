@@ -11,6 +11,7 @@ router
   .post('/', controller.registerUser)
   .use(authenticator)
   .get('/', controller.getAllUsers)
-  .get('/:id', controller.getUserById);
+  .get('/:id', controller.getUserById)
+  .delete('/me', controller.deleteUserByMe);
 
 module.exports = router;

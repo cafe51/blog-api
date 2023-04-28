@@ -32,6 +32,14 @@ class UserController {
       return res.status(500).json({ error: err.message });
     }
   };
+
+  deleteUserByMe = async (req, res) => {
+    try {
+      await this.callServiceMethod(req, res, 204, this.service.deleteUserByMe(req.user.id));
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
 }
 
 module.exports = UserController;
