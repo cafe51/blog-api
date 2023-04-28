@@ -13,6 +13,7 @@ const controller = new BlogPostController(new BlogPostService());
 router
   .use(authenticator)
   .post('/', verifyNewBlogPostBodyTitleAndContent, verifyNewBlogPostBodyCategories, controller.createNewBlogPost)
+  .get('/search', controller.getPostByQuery)
   .get('/', controller.getAllposts)
   .get('/:id', controller.getPostById)
   .put('/:id', verifyIfUserOwnsThePost, verifyNewBlogPostBodyTitleAndContent, controller.updatePost)

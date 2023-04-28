@@ -25,6 +25,14 @@ class BlogPostController {
     }
   };
 
+  getPostByQuery = async (req, res) => {
+    try {
+      await this.callServiceMethod(req, res, 200, this.service.getPostByQueryService(req.query.q));
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
+
   createNewBlogPost = async (req, res) => {
     try {
       await this.callServiceMethod(req, res, 201, this.service.createNewBlogPost({

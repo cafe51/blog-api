@@ -1,5 +1,9 @@
+const { Op } = require('sequelize');
 const {
-  blog_post: blogPost, user, category, posts_categories: postCategories,
+  blog_post: blogPost,
+  posts_categories: postCategories,
+  user,
+  category,
 } = require('../database/models');
 
 const USERID = 'user_id';
@@ -34,6 +38,22 @@ class BlogPostService {
     });
     if (!post) return { status: 404, payload: 'Post does not exist' };
     return { status: null, payload: post };
+  }
+
+  async getPostByQueryService(q) {
+    const posts = await this.modelBlogPost.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${q}%` } },
+          { content: { [Op.like]: `%${q}%` } },
+        ],
+      },
+      include: [
+        { model: this.modelUser, as: 'users', attributes: { exclude: ['password'] } },
+        { model: this.modelCategory, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return { type: null, payload: posts };
   }
 
   async createNewPostCategoriesAssociation(postId, categoryIds) {
