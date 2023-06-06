@@ -8,6 +8,7 @@
     "dev": "nodemon .",
     "test:db": "npm run db:create && npm run seed && mocha --recursive test/**/*.test.js",
     "test": "mocha --recursive test/**/*.test.js",
+    "db-init": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all",
     "db:create": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
     "seed": "npx sequelize db:seed:all",
     "drop": "npx sequelize db:drop"
