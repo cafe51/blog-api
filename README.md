@@ -145,9 +145,7 @@ Crie um novo post para o blog: POST: http://localhost:3001/post
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
   {
-    "title": "Latest updates, August 1st
-
-",
+    "title": "Latest updates, August 1st",
     "content": "The whole text for the blog post goes here in this key",
     "categoryIds": [1, 2]
   }
