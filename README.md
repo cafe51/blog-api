@@ -12,13 +12,9 @@ Olá, bem-vindo à API para Blogs! Esta aplicação foi desenvolvida por mim, Ja
 - [Testes](#testes)
 - [Conclusão](#conclusão)
 
----
-
 ## Sobre o Projeto
 
 Esta API oferece um controle detalhado e personalizado sobre todas as operações de um blog. Pode-se facilmente registrar novos usuários, autenticá-los, permitir que eles criem, editem e excluam suas próprias postagens, classifiquem postagens em diferentes categorias e até mesmo permitam a criação de novas categorias.
-
----
 
 ## Tecnologias Utilizadas
 
@@ -67,7 +63,7 @@ Para obter detalhes específicos
  sobre como usar cada rota, confira a seção "Funcionalidades da API" abaixo.
 
 
----
+
 
 ## Funcionalidades da API
 
@@ -172,7 +168,7 @@ Delete um post do blog (você só pode deletar posts de sua autoria):
 Delete sua própria conta (após deletar a própria conta você perderá o acesso a todas as funcionalidades do blog):
 - O endpoint é acessível através do URL `http://localhost:3001/user/me` no método `DELETE`
 
----
+
 
 ## [Como configurar e executar o projeto](#como-configurar-e-executar-o-projeto)
 
@@ -194,7 +190,7 @@ Para rodar o projeto localmente siga os passos a seguir:
 
 E pronto! A API está agora pronta para ser usada localmente.
 
----
+
 
 ## [Testes](#testes)
 
@@ -203,8 +199,6 @@ Nesse projeto está incluso uma suíte de testes para garantir que tudo funcione
 ## Conclusão
 
 A API para blogs está pronta para ser usada, sinta-se à vontade para contribuir com seu código ou feedback!
-
----
 
 Caso queira contribuir com o projeto, lembre-se de seguir as diretrizes de contribuição. E se tiver alguma dúvida ou problema, sinta-se à vontade para abrir uma issue. Ajudarei com muito prazer! 
 
