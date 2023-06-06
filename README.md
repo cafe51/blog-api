@@ -109,6 +109,8 @@ Procure um usuário por id:
 - O endpoint é acessível através da URL `http://localhost:3001/user/:id` no método `GET`
 - Substitua `:id` pelo id do usuário a ser acessado
 
+---
+
 **Categorias**
 <br />
 Acesse a lista de categorias cadastradas:
@@ -122,6 +124,8 @@ Registre uma nova categoria:
     "name": "Typescript"
   }
   ```
+
+---
 
 **Posts**
 <br />
@@ -164,10 +168,11 @@ Delete um post do blog (você só pode deletar posts de sua autoria):
 - O endpoint é acessível através do URL `http://localhost:3001/post/:id` no método `DELETE`
 - Substitua `:id` pelo id do post a ser deletado
 
+---
+
 **Conta**
 Delete sua própria conta (após deletar a própria conta você perderá o acesso a todas as funcionalidades do blog):
 - O endpoint é acessível através do URL `http://localhost:3001/user/me` no método `DELETE`
-
 
 
 ## [Como configurar e executar o projeto](#como-configurar-e-executar-o-projeto)
@@ -189,7 +194,6 @@ Para rodar o projeto localmente siga os passos a seguir:
 2. Rode o comando `npm start` para iniciar o servidor.
 
 E pronto! A API está agora pronta para ser usada localmente.
-
 
 
 ## [Testes](#testes)
