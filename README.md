@@ -105,6 +105,7 @@ Pode-se optar pelo cadastro de uma nova conta na seguinte rota:
 Para acessar as demais funcionalidades da API, você precisa adicionar o token gerado ao cabeçalho das requisições. Seguem exemplos de como usar as demais rotas.
 
 **Usuários**
+<br />
 Acesse os usuários cadastrados no banco de dados:
 - O endpoint é acessível através da URL `http://localhost:3001/user` no método `GET`
 
@@ -113,6 +114,7 @@ Procure um usuário por id:
 - Substitua `:id` pelo id do usuário a ser acessado
 
 **Categorias**
+<br />
 Acesse a lista de categorias cadastradas:
 - O endpoint é acessível através da URL `http://localhost:3001/categories` no método `GET`
 
@@ -126,6 +128,7 @@ Registre uma nova categoria:
   ```
 
 **Posts**
+<br />
 Acesse a lista de todos os posts do blog:
 - O endpoint é acessível através da URL `http://localhost:3001/post` no método `GET`
 
