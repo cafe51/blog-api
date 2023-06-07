@@ -96,27 +96,27 @@ Pode-se optar pelo cadastro de uma nova conta na seguinte rota:
   ```
 - O campo "image" é opcional. Após o cadastro, também será gerado um token para acesso.
 
-### Outras funcionalidades
+## Outras funcionalidades da API
 
 Para acessar as demais funcionalidades da API, você precisa adicionar o token gerado ao cabeçalho das requisições. Seguem exemplos de como usar as demais rotas.
 
-**Usuários**
+### Usuários
 <br />
-Acesse os usuários cadastrados no banco de dados:
+**Acesse os usuários cadastrados no banco de dados:**
 - O endpoint é acessível através da URL `http://localhost:3001/user` no método `GET`
 
-Procure um usuário por id:
+**Procure um usuário por id:**
 - O endpoint é acessível através da URL `http://localhost:3001/user/:id` no método `GET`
 - Substitua `:id` pelo id do usuário a ser acessado
 
 ---
 
-**Categorias**
+### Categorias
 <br />
 Acesse a lista de categorias cadastradas:
 - O endpoint é acessível através da URL `http://localhost:3001/categories` no método `GET`
 
-Registre uma nova categoria:
+**Registre uma nova categoria:**
 - O endpoint é acessível através da URL `http://localhost:3001/categories` no método `POST`
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
@@ -127,7 +127,7 @@ Registre uma nova categoria:
 
 ---
 
-**Posts**
+### Posts
 <br />
 Acesse a lista de todos os posts do blog:
 - O endpoint é acessível através da URL `http://localhost:3001/post` no método `GET`
@@ -140,7 +140,7 @@ Pesquise um post do blog usando uma palavra chave:
 - O endpoint é acessível através da URL `http://localhost:3001/post/search?q=:searchTerm` no método `GET`
 - Substitua `:searchTerm` pela palavra a ser buscada
 
-Crie um novo post para o blog: POST: http://localhost:3001/post
+Crie um novo post para o blog:
 - O endpoint é acessível através da URL `http://localhost:3001/post` no método `POST`
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
@@ -162,13 +162,13 @@ Edite um post do blog (você só pode editar posts de sua autoria):
   }
   ```
 
-Delete um post do blog (você só pode deletar posts de sua autoria):
+**Delete um post do blog (você só pode deletar posts de sua autoria):**
 - O endpoint é acessível através do URL `http://localhost:3001/post/:id` no método `DELETE`
 - Substitua `:id` pelo id do post a ser deletado
 
 ---
 
-**Conta**
+### Conta
 Delete sua própria conta (após deletar a própria conta você perderá o acesso a todas as funcionalidades do blog):
 - O endpoint é acessível através do URL `http://localhost:3001/user/me` no método `DELETE`
 
