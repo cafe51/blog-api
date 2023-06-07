@@ -102,6 +102,7 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
 
 ### Usuários
 <br />
+
 **Acesse os usuários cadastrados no banco de dados:**
 - O endpoint é acessível através da URL `http://localhost:3001/user` no método `GET`
 
@@ -113,7 +114,8 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
 
 ### Categorias
 <br />
-Acesse a lista de categorias cadastradas:
+
+**Acesse a lista de categorias cadastradas:**
 - O endpoint é acessível através da URL `http://localhost:3001/categories` no método `GET`
 
 **Registre uma nova categoria:**
@@ -129,18 +131,19 @@ Acesse a lista de categorias cadastradas:
 
 ### Posts
 <br />
-Acesse a lista de todos os posts do blog:
+
+**Acesse a lista de todos os posts do blog:**
 - O endpoint é acessível através da URL `http://localhost:3001/post` no método `GET`
 
-Acesse um post do blog buscando pelo id:
+**Acesse um post do blog buscando pelo id:**
 - O endpoint é acessível através da URL `http://localhost:3001/post/:id` no método `GET`
 - Substitua `:id` pelo id do post a ser acessado
 
-Pesquise um post do blog usando uma palavra chave:
+**Pesquise um post do blog usando uma palavra chave:**
 - O endpoint é acessível através da URL `http://localhost:3001/post/search?q=:searchTerm` no método `GET`
 - Substitua `:searchTerm` pela palavra a ser buscada
 
-Crie um novo post para o blog:
+**Crie um novo post para o blog:**
 - O endpoint é acessível através da URL `http://localhost:3001/post` no método `POST`
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
@@ -151,7 +154,7 @@ Crie um novo post para o blog:
   }
   ```
 
-Edite um post do blog (você só pode editar posts de sua autoria):
+**Edite um post do blog (você só pode editar posts de sua autoria):**
 - O endpoint é acessível através do URL `http://localhost:3001/post/:id` no método `PUT`
 - Substitua `:id` pelo id do post a ser editado
 - O corpo da requisição deverá seguir o formato abaixo:
@@ -169,13 +172,13 @@ Edite um post do blog (você só pode editar posts de sua autoria):
 ---
 
 ### Conta
-Delete sua própria conta (após deletar a própria conta você perderá o acesso a todas as funcionalidades do blog):
+**Delete sua própria conta (após deletar a própria conta você perderá o acesso a todas as funcionalidades do blog):**
 - O endpoint é acessível através do URL `http://localhost:3001/user/me` no método `DELETE`
 
 
 ## [Como configurar e executar o projeto](#como-configurar-e-executar-o-projeto)
 
-Para rodar o projeto localmente siga os passos a seguir:
+**Para rodar o projeto localmente siga os passos a seguir:**
 
 1. Configure o arquivo `.env` na raiz do projeto de acordo com suas credenciais.
 2. Esteja na raíz do projeto e rode o comando `npm install`.
