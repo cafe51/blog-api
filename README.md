@@ -1,6 +1,6 @@
 # Boas-vindas ao repositório do projeto API para Blogs!
 
-Olá, bem-vindo à API para Blogs! Esta aplicação foi desenvolvida por mim, Japhé Nogueira, como um projeto para o curso de desenvolvimento web da Trybe. Este projeto é um sistema de back-end completo, robusto e eficiente desenvolvido para gerenciar todas as operações essenciais de um blog, incluindo o registro de usuários, autenticação, criação e gerenciamento de postagens.
+Olá, bem-vindo à API para Blogs! A api está funcionando online, basta acessar https://blog-api-japhe.up.railway.app/. Esta aplicação foi desenvolvida por mim, Japhé Nogueira, como um projeto para o curso de desenvolvimento web da Trybe. Este projeto é um sistema de back-end completo, robusto e eficiente desenvolvido para gerenciar todas as operações essenciais de um blog, incluindo o registro de usuários, autenticação, criação e gerenciamento de postagens.
 
 ## Índice
 
@@ -71,7 +71,7 @@ Para obter detalhes específicos
 
 Comece logando em uma conta que já existe no banco de dados.
 
-- O endpoint é acessível através da URL `http://localhost:3001/login` no método `POST`;
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/login` no método `POST`;
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
   {
@@ -84,7 +84,7 @@ Será gerado um token que deverá ser usado para acessar as demais rotas.
 
 Pode-se optar pelo cadastro de uma nova conta na seguinte rota:
 
-- O endpoint é acessível através da URL `http://localhost:3001/user` no método `POST`;
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/user` no método `POST`;
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
   {
@@ -104,10 +104,10 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
 <br />
 
 **Acesse os usuários cadastrados no banco de dados:**
-- O endpoint é acessível através da URL `http://localhost:3001/user` no método `GET`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/user` no método `GET`
 
 **Procure um usuário por id:**
-- O endpoint é acessível através da URL `http://localhost:3001/user/:id` no método `GET`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/user/:id` no método `GET`
 - Substitua `:id` pelo id do usuário a ser acessado
 
 ---
@@ -116,10 +116,10 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
 <br />
 
 **Acesse a lista de categorias cadastradas:**
-- O endpoint é acessível através da URL `http://localhost:3001/categories` no método `GET`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/categories` no método `GET`
 
 **Registre uma nova categoria:**
-- O endpoint é acessível através da URL `http://localhost:3001/categories` no método `POST`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/categories` no método `POST`
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
   {
@@ -133,18 +133,18 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
 <br />
 
 **Acesse a lista de todos os posts do blog:**
-- O endpoint é acessível através da URL `http://localhost:3001/post` no método `GET`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/post` no método `GET`
 
 **Acesse um post do blog buscando pelo id:**
-- O endpoint é acessível através da URL `http://localhost:3001/post/:id` no método `GET`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/post/:id` no método `GET`
 - Substitua `:id` pelo id do post a ser acessado
 
 **Pesquise um post do blog usando uma palavra chave:**
-- O endpoint é acessível através da URL `http://localhost:3001/post/search?q=:searchTerm` no método `GET`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/post/search?q=:searchTerm` no método `GET`
 - Substitua `:searchTerm` pela palavra a ser buscada
 
 **Crie um novo post para o blog:**
-- O endpoint é acessível através da URL `http://localhost:3001/post` no método `POST`
+- O endpoint é acessível através da URL `https://blog-api-japhe.up.railway.app/post` no método `POST`
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
   {
@@ -155,7 +155,7 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
   ```
 
 **Edite um post do blog (você só pode editar posts de sua autoria):**
-- O endpoint é acessível através do URL `http://localhost:3001/post/:id` no método `PUT`
+- O endpoint é acessível através do URL `https://blog-api-japhe.up.railway.app/post/:id` no método `PUT`
 - Substitua `:id` pelo id do post a ser editado
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
@@ -166,22 +166,22 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
   ```
 
 **Delete um post do blog (você só pode deletar posts de sua autoria):**
-- O endpoint é acessível através do URL `http://localhost:3001/post/:id` no método `DELETE`
+- O endpoint é acessível através do URL `https://blog-api-japhe.up.railway.app/post/:id` no método `DELETE`
 - Substitua `:id` pelo id do post a ser deletado
 
 ---
 
 ### Conta
 **Delete sua própria conta (após deletar a própria conta você perderá o acesso a todas as funcionalidades do blog):**
-- O endpoint é acessível através do URL `http://localhost:3001/user/me` no método `DELETE`
+- O endpoint é acessível através do URL `https://blog-api-japhe.up.railway.app/user/me` no método `DELETE`
 
 
-## [Como configurar e executar o projeto](#como-configurar-e-executar-o-projeto)
+## [Como configurar e executar o projeto localmente](#como-configurar-e-executar-o-projeto)
 
 **Para rodar o projeto localmente siga os passos a seguir:**
 
 1. Configure o arquivo `.env` na raiz do projeto de acordo com suas credenciais.
-2. Esteja na raíz do projeto e rode o comando `npm install`.
+2. Esteja na raiz do projeto e rode o comando `npm install`.
 
 ### Se estiver usando Docker
 1. Rode o comando `docker compose -f "docker-compose.yml" up -d --build`.
@@ -194,7 +194,7 @@ Para acessar as demais funcionalidades da API, você precisa adicionar o token g
 1. Rode o comando `npm run db-init` para configurar o banco de dados.
 2. Rode o comando `npm start` para iniciar o servidor.
 
-E pronto! A API está agora pronta para ser usada localmente.
+E pronto! A API está agora pronta para ser usada localmente no endereço http://localhost:3001
 
 
 ## [Testes](#testes)
