@@ -49,14 +49,18 @@ class UserService {
       return { status: errorMap.mapError('CONFLICT'), payload: 'User already registered' };
     }
 
-    const token = sign(
-      {
-        [NAME]: displayName,
-        email,
-        password,
-        image,
-      },
-    );
+    const userFounded = await this.getUserByEmail(email);
+
+    const token = sign(userFounded.payload.dataValues);
+
+    // const token = sign(
+    //   {
+    //     [NAME]: displayName,
+    //     email,
+    //     password,
+    //     image,
+    //   },
+    // );
 
     return { status: null, payload: { token } };
   }
