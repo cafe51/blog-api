@@ -88,7 +88,8 @@ class BlogPostService {
 
   async updatePost(id, body) {
     const { title, content } = body;
-    await this.modelBlogPost.update({ title, content }, { where: { id } });
+    await this.modelBlogPost
+      .update({ title, content, updated: new Date().toISOString() }, { where: { id } });
   }
 
   async deletePost(id) {
