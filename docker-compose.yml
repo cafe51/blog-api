@@ -12,6 +12,8 @@ services:
       - 3001:3001
     volumes:
       - ./:/app
+    environment:
+      - MYSQL_HOST=db
   db:
     image: mysql:8.0.23
     container_name: blog-db
