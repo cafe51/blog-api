@@ -9,7 +9,16 @@ module.exports = {
     {
       post_id: 2,
       category_id: 2,
-    }], {});
+    },
+    {
+      post_id: 3,
+      category_id: 2,
+    },
+    {
+      post_id: 4,
+      category_id: 2,
+    },
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {

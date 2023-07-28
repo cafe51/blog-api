@@ -9,7 +9,8 @@ module.exports = {
     {
       id: 2,
       name: 'Escola',
-    }], {});
+    },
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {

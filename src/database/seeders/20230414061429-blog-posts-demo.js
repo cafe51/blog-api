@@ -17,7 +17,24 @@ module.exports = {
       user_id: 1,
       published: new Date('2011-08-01T19:58:00.000Z'),
       updated: new Date('2011-08-01T19:58:51.000Z'),
-    }], {});
+    },
+    {
+      id: 3,
+      title: 'teste1',
+      content: 'testetstestetestestetst',
+      user_id: 2,
+      published: new Date('2011-09-01T19:58:00.000Z'),
+      updated: new Date('2011-08-01T19:58:51.000Z'),
+    },
+    {
+      id: 4,
+      title: 'testet aaaaaaqqq testetstestetestestetst testetstestetestestetst',
+      content: 'Foguete não tem ré',
+      user_id: 2,
+      published: new Date('2012-08-01T19:58:00.000Z'),
+      updated: new Date('2011-08-01T19:58:51.000Z'),
+    },
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {
