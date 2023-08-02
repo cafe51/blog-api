@@ -1,6 +1,8 @@
 # Boas-vindas ao repositório do projeto API para Blogs!
 
-Olá, bem-vindo à API para Blogs! A api está funcionando online, basta acessar https://blog-api-japhe.up.railway.app/. Esta aplicação foi desenvolvida por mim, Japhé Nogueira, como um projeto para o curso de desenvolvimento web da Trybe. Este projeto é um sistema de back-end completo, robusto e eficiente desenvolvido para gerenciar todas as operações essenciais de um blog, incluindo o registro de usuários, autenticação, criação e gerenciamento de postagens.
+Olá, bem-vindo à API para Blogs! A api está funcionando online, basta acessar https://blog-api-japhe.up.railway.app/.
+Para acessar o front-end que eu criei para essa aplicação você pode acessar o link: https://japhe.vercel.app/blogapi
+Esta aplicação foi desenvolvida por mim, Japhé Nogueira, como um projeto para o curso de desenvolvimento web da Trybe. Este projeto é um sistema de back-end completo, robusto e eficiente desenvolvido para gerenciar todas as operações essenciais de um blog, incluindo o registro de usuários, autenticação, criação e gerenciamento de postagens.
 
 ## Índice
 
